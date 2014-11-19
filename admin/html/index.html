@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>		
+	<title>Administrative System</title>
+	</head>
+	<body>
+		<form action="" id="group-form">
+			<select name="groups" id="group-select">
+				<option value="EMPTY"></option>
+			</select>
+			<select name="members" id="members-select"></select>
+		</form>
+		<div id="admin-name"></div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../src/group-admin.js" charset="utf-8"></script>
+	<script>				
+		$(function () {
+			GroupAdmin.init();
+		});
+	</script>
+</html>
