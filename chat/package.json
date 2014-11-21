@@ -1,0 +1,9 @@
+{
+  "name": "FLUO-Chat!",
+  "version": "0.1.1",
+  "description": "This is an awesome chat",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.2.1"
+  }
+}
