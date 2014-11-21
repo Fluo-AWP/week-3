@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>		
+	<title>Dom Attributes</title>
+	</head>
+	<body>
+		<div id="an-element" title="hello"></div>
+	</body>
+	<script type="text/javascript">
+		var element = document.getElementById('an-element');
+		var attrName = 'title';
+
+		function testAttrDomMethod () {
+			return element.getAttribute(attrName);
+		}
+
+		function testAttrProperty () {
+			return element[attrName];
+		}
+
+
+		function compareExecutionTime (methodOne, methodTwo) {
+			var now = new Date().getTime();
+			for (var i = 0; i < 10000; i++) {
+				methodOne();
+			};
+			var firstElapsed = new Date().getTime() - now;
+
+			now = new Date().getTime();
+			for (var i = 0; i < 10000; i++) {
+				methodTwo();
+			};
+			var secondElapsed = new Date().getTime() - now;
+
+			return {
+				fastest: firstElapsed < secondElapsed ? methodOne.name : methodTwo.name,
+				difference: firstElapsed < secondElapsed ? secondElapsed - firstElapsed : firstElapsed - secondElapsed
+			}
+		}
+
+		var result = compareExecutionTime(testAttrProperty, testAttrDomMethod);
+		element.innerHtml = result.fastest +' was faster with '+ result.difference +'ms!!';
+	</script>
+</html>
