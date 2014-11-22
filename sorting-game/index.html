@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fun sorting game!</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; cursor: move;}
+  </style>
+  <script>
+  $(function() {
+
+    var numArray = [];
+    var i = 0;
+
+    while(i < 10){
+      var number = Math.floor((Math.random() * 100) + 1);
+      if($.inArray(number, numArray) == -1){
+        numArray.push(number);
+        i++;
+      }
+    }
+
+    $.each(numArray, function(index, number){
+      $("#sortable").append('<li class="ui-state-default" data-number="'+number+'">Item '+number+'</li>');
+    });
+
+    function sortNumber(a,b) {
+        return a - b;
+    }
+
+    var sortetArray = numArray.sort(sortNumber);
+
+    $( "#sortable" ).sortable({
+      update: function( event, ui ) {
+        var list = $('#sortable li');
+        var won = true;
+
+        $.each(list, function(index, element){
+          userNumber = parseInt($(element).attr('data-number'));
+          if (sortetArray[index] !== userNumber) won = false;
+        });
+
+        if(won){
+          alert('Congratulations you have won!');
+        }
+
+      }
+    });
+    $( "#sortable" ).disableSelection();
+
+    
+  });
+  </script>
+</head>
+<body>
+ 
+<ul id="sortable">
+</ul>
+ 
+ 
+</body>
+</html>
