@@ -2,34 +2,69 @@
   <head>
     <title>FLOU chat</title>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form #name { border: 0; padding: 10px; width: 10%; }
-      form #m { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
+    body {
+  font: 13px Helvetica, Arial;
+  margin: 0; }
+
+#message-form {
+  background: #052332;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 3px 0 3px 1px; }
+  #message-form #name {
+    width: 10%;
+    padding: 10px;
+    color: #fff; }
+  #message-form #message {
+    border: 0;
+    width: 80%;
+    margin-right: .5%;
+    padding: 10px;
+    border-radius: 2px; }
+  #message-form button {
+    width: 9%;
+    background: #7065B0;
+    border: none;
+    padding: 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer; }
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  #messages li {
+    padding: 5px 10px; }
+  #messages li:nth-child(odd) {
+    background: #E1F2FB; }
+
     </style>
   </head>
   <body>
     <ul id="messages"></ul>
-    <form action="">
-      <input id="name" autocomplete="off" placeholder="Name"/>
-      <input id="m" autocomplete="off" /><button>Send</button>
+    <form action="" id="message-form">
+      <strong id="name"></strong>
+      <input id="message" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+      
+      var name = prompt("Please enter your name", "Stein Bagger");
+      $("#name").text(name);
+
       var socket = io();
       $('form').submit(function(){
-        var name = $('#name').val();
-        var msg = $('#m').val();
+        var msg = $('#message').val();
         if(name != "" && msg != ""){
           socket.emit('chat message', name+": "+msg);
-          $('#m').val('');
+          $('#message').val('');
         }else{
           alert("Please choose a name, and do not sent blank message")
         }
